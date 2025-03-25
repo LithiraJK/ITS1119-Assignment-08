@@ -14,14 +14,14 @@ $(document).ready(function () {
     });
   
     $("#customerName").on("keyup", function (e) {
-      const valid = validateField($(this), CUS_NAME_REGEX, $("#customerNameError"), "Minimum 4 characters");
+      const valid = validateField($(this), CUS_NAME_REGEX, $("#customerNameError"), "Minimum 4 characters Max 20");
       if (valid && e.key === "Enter") {
         $("#customerAddress").focus();
       }
     });
   
     $("#customerAddress").on("keyup", function (e) {
-      const valid = validateField($(this), CUS_ADDRESS_REGEX, $("#customerAddressError"), "Minimum 7 characters");
+      const valid = validateField($(this), CUS_ADDRESS_REGEX, $("#customerAddressError"), "Minimum 7 characters Max 20");
       if (valid && e.key === "Enter") {
         $("#customerSalary").focus();
       }
@@ -41,8 +41,8 @@ $(document).ready(function () {
   
       const isValid =
         validateField($("#customerId"), CUS_ID_REGEX, $("#customerIdError"), "Format: C00-001") &&
-        validateField($("#customerName"), CUS_NAME_REGEX, $("#customerNameError"), "Minimum 4 characters") &&
-        validateField($("#customerAddress"), CUS_ADDRESS_REGEX, $("#customerAddressError"), "Minimum 7 characters") &&
+        validateField($("#customerName"), CUS_NAME_REGEX, $("#customerNameError"), "Minimum 4 characters Max 20") &&
+        validateField($("#customerAddress"), CUS_ADDRESS_REGEX, $("#customerAddressError"), "Minimum 7 characters Max 20") &&
         validateField($("#customerSalary"), CUS_SALARY_REGEX, $("#customerSalaryError"), "Format: 100 or 100.00");
   
       if (!isValid) return;
@@ -82,6 +82,8 @@ $("#customerTable").on("click", "tbody tr", function () {
   
     $("#btnSaveCustomer").prop("disabled", true); 
   });
+
+  // ---------- Functions ----------
   
 
   function renderTable(customers) {
