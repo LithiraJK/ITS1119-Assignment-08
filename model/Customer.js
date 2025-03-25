@@ -1,11 +1,10 @@
 class Customer {
-    constructor(id, name, address, salary) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.salary = salary;
+    constructor(customerId, customerName, customerAddress, customerSalary) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.customerAddress = customerAddress;
+        this.customerSalary = customerSalary;
     }
 }
 
-export default Customer;
-
+console.log(new Customer);

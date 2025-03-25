@@ -138,51 +138,51 @@ $("#customerTable").on("click", "tbody tr", function () {
     }
 
     function saveCustomer() {
-        const customer = {
-            customerId: $("#customerId").val(),
-            customerName: $("#customerName").val(),
-            customerAddress: $("#customerAddress").val(),
-            customerSalary: $("#customerSalary").val(),
-        };
+        const id = $("#customerId").val();
+        const name = $("#customerName").val();
+        const address = $("#customerAddress").val();
+        const salary = $("#customerSalary").val();
     
-        if (existCustomer(customer.customerId)) {
+        if (existCustomer(id)) {
             alert("Customer with this ID already exists!");
             return;
         }
     
-        if(confirm('Do you really need to add this Customer...?')){
+        if (confirm('Do you really need to add this Customer...?')) {
+            const customer = new Customer(id, name, address, salary);
+
             customerDB.push(customer);
             getAllCustomers();
-            ("Customer saved successfully!");
+            alert("Customer saved successfully!");
         }
-        
     }
 
     function updateCustomer() {
-        const customer = {
-            customerId: $("#customerId").val(),
-            customerName: $("#customerName").val(),
-            customerAddress: $("#customerAddress").val(),
-            customerSalary: $("#customerSalary").val(),
-        };
-    
-        const customerIndex = customerDB.findIndex(c => c.customerId === customer.customerId);
-    
-        if (customerIndex === -1) {
-            showAlert("Customer not found!", "warning");
-            return;
-        }
-    
-        if (confirm("Do you really want to update this customer?")) {
-            customerDB[customerIndex] = customer;
-    
-            getAllCustomers();
-    
-            alert("Customer updated successfully!", "success");
-    
-            resetForm();
-        }
+    const id = $("#customerId").val();
+    const name = $("#customerName").val();
+    const address = $("#customerAddress").val();
+    const salary = $("#customerSalary").val();
+
+    const customer = new Customer(id, name, address, salary);
+
+    const customerIndex = customerDB.findIndex(c => c.customerId === customer.customerId);
+
+    if (customerIndex === -1) {
+        showAlert("Customer not found!", "warning");
+        return;
     }
+
+    if (confirm("Do you really want to update this customer?")) {
+        customerDB[customerIndex] = customer;
+
+        getAllCustomers();
+
+        alert("Customer updated successfully!");
+
+        resetForm();
+    }
+}
+
 
     function deleteCustomer(id) {
         let result = confirm("Are you sure you want to remove this customer?");
