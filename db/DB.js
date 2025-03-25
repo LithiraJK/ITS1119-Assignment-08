@@ -16,6 +16,6 @@ let customerDB = [
         customerName: "Ahasna",
         customerAddress: "Weligama Mathara",
         customerSalary: "80000.00",
-      },
+    },
   ];
     
