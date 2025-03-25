@@ -1,5 +1,11 @@
+class Customer {
+    constructor(id, name, address, salary) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.salary = salary;
+    }
+}
 
-$(document).ready(function(){
-    console.log("Customer.js is ready!");
+export default Customer;
 
-});
