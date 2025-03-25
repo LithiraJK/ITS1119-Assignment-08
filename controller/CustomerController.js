@@ -57,15 +57,17 @@ $(document).ready(function () {
         updateCustomer();
     }); 
 
-    $("#btnDeleteCustomer").on("click", function (e) {
-        e.preventDefault(); 
-        deleteCustomer();
-    }); 
+$("#customerTable tbody").on("dblclick", "tr", function () {
+    let customerId = $(this).find("td:eq(0)").text();
+    deleteCustomer(customerId);
+    
+  });
+  
 
-$("#btnRestForm").on("click", function (e) {
-    e.preventDefault(); 
-    resetForm();
-});
+    $("#btnRestForm").on("click", function (e) {
+        e.preventDefault(); 
+        resetForm();
+    });
 
 $("#customerTable").on("click", "tbody tr", function () {
     const customerId = $(this).find("td:eq(0)").text();
@@ -109,12 +111,12 @@ $("#customerTable").on("click", "tbody tr", function () {
 
     renderTable(filteredCustomers);
   });
-    
+
 
     function resetForm() {
         $("#registrationForm")[0].reset();
         resetValidation("#registrationForm");
-        $("#btnSaveCustomer").prop("disabled", true);
+        $("#btnSaveCustomer").prop("disabled", false);
         $("#customerId").val(getNextCustomerID());
     }
 
@@ -183,17 +185,10 @@ $("#customerTable").on("click", "tbody tr", function () {
     }
 
     function deleteCustomer(id) {
-        const customer = existCustomer(id);
-    
-        if (customer) {
-            alert(`No customer with the ID: ${id}. Please check the ID again.`);
-            return;
-        }
-    
         let result = confirm("Are you sure you want to remove this customer?");
         if (result) {
-            let index = customerDB.findIndex(c => c.id === id);
-    
+            let index = customerDB.findIndex(c => c.customerId === id);
+        
             if (index !== -1) {
                 customerDB.splice(index, 1);
                 alert("Customer deleted successfully");

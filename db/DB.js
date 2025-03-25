@@ -11,5 +11,11 @@ let customerDB = [
       customerAddress: "Mathara Road",
       customerSalary: "85000.00",
     },
+    {
+        customerId: "C00-003",
+        customerName: "Ahasna",
+        customerAddress: "Weligama Mathara",
+        customerSalary: "80000.00",
+      },
   ];
     
