@@ -53,4 +53,14 @@ let ordersDB = [
         {itmCode:"I00-002", unitPrice:640.00, qty:2}
     ]
   },
+  {  
+    orderId:"OID-002",
+    orderDate:"2025/03/25", 
+    customerId:"C00-002", 
+    discount: 10, 
+    totalPrice: 1152,
+    orderDetails:[
+        {itmCode:"I00-002", unitPrice:640.00, qty:2}
+    ]
+  },
 ]

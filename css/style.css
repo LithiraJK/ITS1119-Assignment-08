@@ -1,52 +1,62 @@
-.nav-link{
-    color: white;
+.nav-link {
+  color: white;
 }
 
-.nav-link:hover{
-    color: white;
+.nav-link:hover {
+  color: white;
 }
 
-header h2{
-    color: white;
+header h2 {
+  color: white;
 }
 
 .nav-link.active {
-    background-color: white !important;
-    border-color: white !important;
-    color: black !important; 
-  }
+  background-color: white !important;
+  border-color: white !important;
+  color: black !important;
+}
 
 #customerTableBody tr:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-#pills-home{
-    height: 100vh;
+#pills-home {
+  height: 100vh;
 }
 
-header{
-    background-color: rgba(0, 0, 0, 0.1);
+header {
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 .order-card {
-    margin-bottom: 1.5rem;
-  }
-  .order-item {
-    border-bottom: 1px solid #f0f0f0;
-    padding: 0.5rem 0;
-  }
-  .order-item:last-child {
-    border-bottom: none;
-  }
-  .card-header {
-    cursor: pointer;
-  }
+  margin-bottom: 1.5rem;
+}
+.order-item {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 0.5rem 0;
+}
+.order-item:last-child {
+  border-bottom: none;
+}
+.card-header {
+  cursor: pointer;
+}
 
-  .footer {
-    position: relative;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 999;
+.footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+@media (max-width: 991.98px) {
+  #navbarTabs.navbar-right {
+    display: flex;
+    justify-content: center;
   }
-  
+  #navbarTabs .navbar-nav {
+    flex: 0 0 25%;
+    max-width: 25%;
+    text-align: right;
+  }
+}
