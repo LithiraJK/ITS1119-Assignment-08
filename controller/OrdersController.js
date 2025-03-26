@@ -60,28 +60,56 @@ $(document).ready(function () {
       }
   
       const total = unitPrice * orderedQty;
-      const newRow = `
-        <tr>
-          <td>${itemCode}</td>
-          <td>${itemName}</td>
-          <td>${unitPrice.toFixed(2)}</td>
-          <td>${orderedQty}</td>
-          <td>${total.toFixed(2)}</td>
-        </tr>
-      `;
-      $("#orderCart tbody").append(newRow);
+  
+      let itemExists = false;
+      $("#orderCart tbody tr").each(function () {
+        const existingItemCode = $(this).find("td:eq(0)").text();
+        if (existingItemCode === itemCode) {
+
+          const existingQty = parseInt($(this).find("td:eq(3)").text(), 10);
+          const newQty = existingQty + orderedQty;
+          const newTotal = unitPrice * newQty;
+  
+          $(this).find("td:eq(3)").text(newQty);
+          $(this).find("td:eq(4)").text(newTotal.toFixed(2)); 
+  
+          itemExists = true;
+          return false;
+        }
+      });
+  
+      if (!itemExists) {
+        const newRow = `
+          <tr>
+            <td>${itemCode}</td>
+            <td>${itemName}</td>
+            <td>${unitPrice.toFixed(2)}</td>
+            <td>${orderedQty}</td>
+            <td>${total.toFixed(2)}</td>
+          </tr>
+        `;
+        $("#orderCart tbody").append(newRow);
+      }
+  
+    
+      const item = itemDB.find(i => i.itemCode === itemCode);
+      if (item) {
+        item.itemQty -= orderedQty; 
+      }
+    
+      $("#orderItemQty").val(item ? item.itemQty : "");
+  
       updateTotals();
     });
-  
-    function validateDiscount(value) {
-      const num = parseFloat(value);
-      return !isNaN(num) && num >= 0 && num <= 100;
+
+    $("#orderSearchButton").on("click", searchOrderById);
+
+    $("#orderSearchInput").on("keypress", function (e) {
+    if (e.which === 13) {
+        searchOrderById();
     }
+    });
   
-    function validateCash(value) {
-      const num = parseFloat(value);
-      return !isNaN(num) && num > 0;
-    }
   
     function updateBalance() {
       let subTotal = parseFloat($("#subTotalPrice").text());
@@ -164,7 +192,6 @@ $(document).ready(function () {
       
     });
 
-    let orderDetails = [];
     function saveOrders() {
         const orderId = $("#orderId").val();
         const orderDate = $("#o_inputOrderDate").val();
@@ -172,25 +199,49 @@ $(document).ready(function () {
         const discount = $("#discountInput").val();
         const totalPrice = parseFloat($("#totalPrice").text());
 
-        const itemCode = $("#orderItemCode").val();
-        const unitPrice = parseFloat($("#orderItemPrice").val());
-        const orderedQty = parseInt($("#orderQty").val(), 10);
-
-        const orderDetails = [
-            {
-                itmCode: itemCode,
-                unitPrice: unitPrice,
-                qty: orderedQty
-            }
-        ];
+        const orderDetails = [];
+        $("#orderCart tbody tr").each(function () {
+            const itmCode = $(this).find("td:eq(0)").text();
+            const unitPrice = parseFloat($(this).find("td:eq(2)").text());
+            const qty = parseInt($(this).find("td:eq(3)").text(), 10);
+    
+            orderDetails.push({ itmCode, unitPrice, qty });
+        });
+    
 
         if (confirm("Do you really want to place this order?")) {
             const order = new Order(orderId, orderDate, customerId, discount, totalPrice, orderDetails);
             ordersDB.push(order);
             console.log(order);
             alert("Order placed successfully!");
+
+        
+            clearOrderForm();
         }
         getAllOrders();
+    }
+
+    function clearOrderForm() {
+       
+        $("#orderCustomerId").val("");
+        $("#orderCustomerName").val("");
+        $("#orderCustomerAddress").val("");
+        $("#orderItemCode").val("");
+        $("#orderItemName").val("");
+        $("#orderItemQty").val("");
+        $("#orderItemPrice").val("");
+        $("#orderQty").val("");
+    
+        $("#orderCart tbody").empty();
+    
+        $("#subTotalPrice").text("0.00");
+        $("#discountInput").val("");
+        $("#discountAmount").text("0.00");
+        $("#totalPrice").text("0.00");
+        $("#cashInput").val("");
+        $("#balanceInput").val("");
+    
+        $("#orderId").val(getNextOrderID());
     }
 
     function getAllOrders() {
@@ -306,6 +357,58 @@ $(document).ready(function () {
       $("#totalPrice").text(subTotal.toFixed(2));
     }
 
+
+    function searchOrderById() {
+        const searchId = $("#orderSearchInput").val().trim();
+      
+        const $container = $("#ordersList");
+        $container.empty();
+      
+        if (searchId === "") {
+          getAllOrders(); 
+          return;
+        }
+      
+        const matchedOrder = ordersDB.find(order => order.orderId.toLowerCase() === searchId.toLowerCase());
+      
+        if (matchedOrder) {
+
+          const $card = $(`
+            <div class="card mb-3 shadow-sm">
+              <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">Order ID: ${matchedOrder.orderId}</h5>
+              </div>
+              <div class="card-body">
+                <p><strong>Order Date:</strong> ${matchedOrder.orderDate}</p>
+                <p><strong>Customer ID:</strong> ${matchedOrder.customerId}</p>
+                <p><strong>Discount:</strong> ${matchedOrder.discount}%</p>
+                <p><strong>Total Price:</strong> Rs. ${matchedOrder.totalPrice.toFixed(2)}</p>
+                <details>
+                  <summary class="bg-secondary text-white p-2 rounded">View Order Items</summary>
+                  <div class="mt-2"></div>
+                </details>
+              </div>
+            </div>
+          `);
+      
+          const $itemsContainer = $card.find("details > div");
+          matchedOrder.orderDetails.forEach(detail => {
+            const $item = $(`
+              <div class="border-bottom pb-2 mb-2">
+                <p><strong>Item Code:</strong> ${detail.itmCode}</p>
+                <p><strong>Unit Price:</strong> Rs. ${detail.unitPrice.toFixed(2)}</p>
+                <p><strong>Quantity:</strong> ${detail.qty}</p>
+              </div>
+            `);
+            $itemsContainer.append($item);
+          });
+      
+          $container.append($card);
+        } else {
+          $container.append(`<p class="text-danger">No order found with ID: ${searchId}</p>`);
+        }
+      }
+      
    
 
   });
