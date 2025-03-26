@@ -22,9 +22,9 @@ let customerDB = [
 let itemDB = [
     {
         itemCode: "I00-001",
-        itemName: "Keeri Samba 5KG",
+        itemName: "Keeri Samba 1KG",
         itemQty: 50,
-        unitPrice:1200.00,
+        unitPrice:240.00,
     },
     {
         itemCode: "I00-002",
@@ -40,4 +40,17 @@ let itemDB = [
     },
 
 ]
-    
+
+let ordersDB = [
+  {  
+    orderId:"OID-001",
+    orderDate:"2025/03/24", 
+    customerId:"C00-001", 
+    discount: 5, 
+    totalPrice: 1800,
+    orderDetails:[
+        {itmCode:"I00-001", unitPrice:1200.00, qty:5},
+        {itmCode:"I00-002", unitPrice:640.00, qty:2}
+    ]
+  },
+]
