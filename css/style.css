@@ -1,0 +1,26 @@
+.nav-link{
+    color: white;
+}
+
+.nav-link:hover{
+    color: white;
+}
+
+header h2{
+    color: white;
+}
+
+.nav-link.active {
+    background-color: white !important;
+    border-color: white !important;
+    color: black !important; /* if you want the text to be visible */
+  }
+
+#customerTableBody tr:hover {
+    cursor: pointer;
+}
+
+header{
+    background-color: rgba(0, 0, 0, 0.1);
+}
+  

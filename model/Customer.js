@@ -1,6 +1,10 @@
-console.log("Customer.js is loaded!");
+class Customer {
+    constructor(customerId, customerName, customerAddress, customerSalary) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.customerAddress = customerAddress;
+        this.customerSalary = customerSalary;
+    }
+}
 
-$(document).ready(function(){
-    console.log("jQuery is ready!");
-
-});
+console.log(new Customer);
