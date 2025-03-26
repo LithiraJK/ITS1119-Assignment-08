@@ -196,7 +196,7 @@
                 </div>
               </section>
               
-        <!-- Order Section  -->
+        <!-- Orders Section  -->
         <section class="tab-pane fade" id="pills-orders" role="tabpanel" aria-labelledby="pills-orders-tab">
             <div class="container py-4">
               <!-- Place Order Card -->
@@ -257,17 +257,14 @@
                       <div class="col-md-4">
                         <label for="orderItemName" class="form-label">Item Name</label>
                         <input type="text" id="orderItemName" name="orderItemName" class="form-control" placeholder="Item Name" readonly>
-                        <div class="invalid-feedback" id="orderItemNameError"></div>
                       </div>
                       <div class="col-md-2">
                         <label for="orderItemQty" class="form-label">Available Qty</label>
                         <input type="number" id="orderItemQty" name="orderItemQty" class="form-control" placeholder="Qty" readonly>
-                        <div class="invalid-feedback" id="orderItemQtyError"></div>
                       </div>
                       <div class="col-md-2">
                         <label for="orderItemPrice" class="form-label">Unit Price</label>
                         <input type="number" id="orderItemPrice" name="orderItemPrice" class="form-control" placeholder="Price" readonly>
-                        <div class="invalid-feedback" id="orderItemPriceError"></div>
                       </div>
                     </div>
                     <!-- Order Quantity & Add to Cart -->
@@ -275,7 +272,7 @@
                       <div class="col-md-4">
                         <label for="orderQty" class="form-label">Ordered Qty</label>
                         <input type="number" id="orderQty" name="orderQty" class="form-control" placeholder="Enter Qty" required>
-                        <div class="invalid-feedback" id="orderQtyError"></div>
+                          <span class="form-text text-danger" id="itemQtyError"></span>
                       </div>
                       <div class="col-md-2">
                         <button type="button" id="btnAddToCart" class="btn btn-warning w-100 mt-4">
@@ -297,12 +294,10 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <!-- Cart items will be dynamically added here -->
                       </tbody>
                     </table>
                   </div>
                 </div>
-                <!-- Card Footer: Billing Details & Place Order Button -->
                 <div class="card-footer">
                     <div class="row">
                       <!-- Billing Summary -->
@@ -327,10 +322,13 @@
                         <div class="mb-2">
                           <label for="discountInput" class="form-label">Discount (%)</label>
                           <input type="number" id="discountInput" class="form-control" placeholder="Enter discount">
+                          <span class="form-text text-danger" id="discountError"></span>
                         </div>
                         <div class="mb-2">
                           <label for="cashInput" class="form-label">Cash</label>
                           <input type="number" id="cashInput" class="form-control" placeholder="Enter cash amount">
+                          <span class="form-text text-danger" id="cashError"></span>
+
                         </div>
                         <div class="mb-2">
                           <label for="balanceInput" class="form-label">Balance</label>
@@ -362,6 +360,7 @@
                       <i class="fas fa-search"></i>
                     </button>
                   </div>
+                  
                   <!-- Order Details Table -->
                   <div class="table-responsive">
                     <table class="table table-bordered table-hover" id="orderDetailsTable">
@@ -409,6 +408,10 @@
     <script src="/controller/validations/ItemValidations.js"></script>
     <script src="/model/Item.js"></script>
     <script src="/controller/ItemController.js"></script>
+
+    <script src="/controller/validations/OrderValidations.js" ></script>
+    <script src="/model/Orders.js" ></script>
+    <script src="/controller/OrdersController.js"></script>
 
 
 </body>

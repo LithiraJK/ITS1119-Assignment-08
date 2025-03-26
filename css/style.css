@@ -13,7 +13,7 @@ header h2{
 .nav-link.active {
     background-color: white !important;
     border-color: white !important;
-    color: black !important; /* if you want the text to be visible */
+    color: black !important; 
   }
 
 #customerTableBody tr:hover {
