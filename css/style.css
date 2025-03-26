@@ -23,4 +23,17 @@ header h2{
 header{
     background-color: rgba(0, 0, 0, 0.1);
 }
-  
+
+.order-card {
+    margin-bottom: 1.5rem;
+  }
+  .order-item {
+    border-bottom: 1px solid #f0f0f0;
+    padding: 0.5rem 0;
+  }
+  .order-item:last-child {
+    border-bottom: none;
+  }
+  .card-header {
+    cursor: pointer;
+  }

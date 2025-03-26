@@ -194,27 +194,51 @@ $(document).ready(function () {
     }
 
     function getAllOrders() {
-        const $tbody = $("#orderDetailsTable tbody");
-        $tbody.empty();
+        const $container = $("#ordersList");
+        $container.empty(); 
       
-        ordersDB.forEach(order => {
+        ordersDB.forEach((order, index) => {
+          const collapseId = `orderDetails${index}`;
+      
+          const $card = $(`
+            <div class="card order-card mb-3 shadow-sm">
+              <div class="card-header bg-dark text-white" data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="false" aria-controls="${collapseId}" style="cursor: pointer;">
+                <h5 class="mb-0">Order ID: ${order.orderId}</h5>
+              </div>
+              <div id="${collapseId}" class="collapse">
+                <div class="card-body">
+                  <p><strong>Order Date :</strong> ${order.orderDate}</p>
+                  <p><strong>Customer ID :</strong> ${order.customerId}</p>
+                  <p><strong>Discount :</strong> ${order.discount}%</p>
+                  <p><strong>Total :</strong> Rs. ${order.totalPrice.toFixed(2)}</p>
+                  <details class="mt-3">
+                    <summary class="bg-secondary text-white p-2 rounded">View Order Items</summary>
+                    <div class="mt-2">
+                      <!-- Order items will be appended here -->
+                    </div>
+                  </details>
+                </div>
+              </div>
+            </div>
+          `);
+      
+          const $itemsContainer = $card.find("details > div");
           order.orderDetails.forEach(detail => {
-            const row = `
-              <tr>
-                <td>${order.orderId}</td>
-                <td>${order.orderDate}</td>
-                <td>${order.customerId}</td>
-                <td>${detail.itmCode}</td>
-                <td>${detail.unitPrice}</td>
-                <td>${detail.qty}</td>
-                <td>${order.discount}</td>
-                <td>${order.totalPrice}</td>
-              </tr>
-            `;
-            $tbody.append(row);
+            const $item = $(`
+              <div class="border-bottom pb-2 mb-2">
+                <p><strong>Item Code :</strong> ${detail.itmCode}</p>
+                <p><strong>Unit Price :</strong> Rs. ${detail.unitPrice.toFixed(2)}</p>
+                <p><strong>Quantity :</strong> ${detail.qty}</p>
+              </div>
+            `);
+            $itemsContainer.append($item);
           });
+      
+          $container.append($card);
         });
-    }
+      }
+      
+      
 
     function validateQtyWhileTyping(input, errorField, errorMsg) {
         const value = parseFloat(input.val());
@@ -283,8 +307,6 @@ $(document).ready(function () {
     }
 
    
-
-
 
   });
 
