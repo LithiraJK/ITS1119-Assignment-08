@@ -121,16 +121,80 @@
               </section>
               
               
-            <section class="tab-pane fade" id="pills-item" role="tabpanel" aria-labelledby="pills-item-tab">
-                <div class="row">
-                    <div class="col">
-                      Column1
+              <section class="tab-pane fade" id="pills-item" role="tabpanel" aria-labelledby="pills-item-tab">
+                <div class="row p-4">
+                  <div id="itemAlertContainer"></div>
+              
+                  <!-- item form -->
+                  <div class="col-md-5">
+                    <h3 class="mb-4">Item Registration</h3>
+                    <form id="itemForm" novalidate>
+              
+                      <div class="mb-3">
+                        <label for="itemCode" class="form-label">Item Code</label>
+                        <input type="text" id="itemCode" name="itemCode" class="form-control" placeholder="I00-001" required>
+                        <span class="form-text text-danger" id="itemCodeError"></span>
+                      </div>
+              
+                      <div class="mb-3">
+                        <label for="itemName" class="form-label">Item Name</label>
+                        <input type="text" id="itemName" name="itemName" class="form-control" placeholder="Keeri Samba 5KG" required>
+                        <span class="form-text text-danger" id="itemNameError"></span>
+                      </div>
+              
+                      <div class="mb-3">
+                        <label for="itemQty" class="form-label">Quantity</label>
+                        <input type="number" id="itemQty" name="itemQty" class="form-control" placeholder="100" required>
+                        <span class="form-text text-danger" id="itemQtyError"></span>
+                      </div>
+              
+                      <div class="mb-3">
+                        <label for="itemPrice" class="form-label">Unit Price (Rs.)</label>
+                        <input type="number" id="itemPrice" name="itemPrice" class="form-control" placeholder="1200.00" required>
+                        <span class="form-text text-danger" id="itemPriceError"></span>
+                      </div>
+              
+                      <div class="btn-container d-flex justify-content-between">
+                        <button type="submit" id="btnSaveItem" class="btn btn-primary bg-dark border-dark" disabled>Save Item</button>
+                        <button type="button" id="btnUpdateItem" class="btn btn-primary bg-dark border-dark">Update</button>
+                        <button type="reset" id="btnResetItemForm" class="btn btn-danger">Clear All</button>
+                      </div>
+                    </form>
+                  </div>
+              
+                  <!-- Right Column: Table and Search -->
+                  <div class="col-md-7">
+                    <!-- Search Bar -->
+                    <div class="mb-3">
+                      <div class="input-group">
+                        <div class="form-outline flex-fill">
+                          <input type="search" id="itemSearchInput" class="form-control" placeholder="Search item by Code" />
+                        </div>
+                        <button type="button" id="itemSearchButton" class="btn btn-primary bg-dark border-dark">
+                          <i class="fas fa-search"></i>
+                        </button>
+                      </div>
                     </div>
-                    <div class="col">
-                      Column2
+              
+                    <!-- Item Table -->
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-light table-hover" id="itemTable">
+                        <thead class="table-dark">
+                          <tr>
+                            <th class="w-25">Item Code</th>
+                            <th class="w-25">Name</th>
+                            <th class="w-25">Qty</th>
+                            <th class="w-25">Unit Price</th>
+                          </tr>
+                        </thead>
+                        <tbody id="itemTableBody">
+                        </tbody>
+                      </table>
                     </div>
+                  </div>
                 </div>
-            </section>
+              </section>
+              
 
             <section class="tab-pane fade" id="pills-orders" role="tabpanel" aria-labelledby="pills-orders-tab">
                 <div class="row">
@@ -167,5 +231,11 @@
     <script src="/controller/validations/CustomerValidations.js"></script>
     <script src="/model/Customer.js"></script>
     <script src="/controller/CustomerController.js"></script>
+
+    <script src="/controller/validations/ItemValidations.js"></script>
+    <script src="/model/Item.js"></script>
+    <script src="/controller/ItemController.js"></script>
+
+
 </body>
 </html>

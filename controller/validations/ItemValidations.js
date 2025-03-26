@@ -1,10 +1,9 @@
+const ITEM_CODE_REGEX = /^(I00-)[0-9]{3}$/;
+const ITEM_NAME_REGEX = /^[A-Za-z0-9 ]{3,20}$/;
+const ITEM_QTY_REGEX = /^[0-9]+$/;
+const ITEM_PRICE_REGEX = /^(?:\d+|\d+\.\d{2})$/;
 
-const CUS_ID_REGEX = /^(C00-)[0-9]{3}$/;
-const CUS_NAME_REGEX = /^[A-Za-z ]{4,20}$/;
-const CUS_ADDRESS_REGEX = /^[A-Za-z0-9\s,.\-]{7,20}$/;
-const CUS_SALARY_REGEX = /^(?:\d+|\d+\.\d{2})$/;
-
-function validateField($input, regex, $errorEl, errorMsg) {
+function validateItemField($input, regex, $errorEl, errorMsg) {
   const value = $input.val().trim();
 
   if (regex.test(value)) {
@@ -18,6 +17,6 @@ function validateField($input, regex, $errorEl, errorMsg) {
   }
 }
 
-function resetValidation(formSelector) {
+function resetItemValidation(formSelector) {
   $(formSelector).find(".form-control").removeClass("is-valid is-invalid");
 }
