@@ -142,7 +142,7 @@ $(document).ready(function () {
       const total = parseFloat($("#totalPrice").text()) || 0;
       const cash = parseFloat(value);
   
-      if (validateCash(value)) {
+      if (validateCash(cash)) {
         if (cash <= total) {
           $(this).removeClass("is-valid").addClass("is-invalid");
           $("#cashError").text("Insufficient cash. Must be greater than total.");
@@ -409,7 +409,19 @@ $(document).ready(function () {
         }
       }
       
-   
+    function validateDiscount(discount) {
+        if (discount < 0 || discount > 100) {
+            return false; 
+        }
+        return true; 
+    }
+
+    function validateCash(cash) {
+      if (isNaN(cash) || cash < 0) {
+          return false;
+      }
+      return true; 
+    }
 
   });
 
