@@ -14,7 +14,7 @@ $(document).ready(function () {
                 $(".navbar-brand").text(" / DashBoard");
                 break;
             case "pills-customer-tab":
-                $(".navbar-brand").text(" / Customer Manage");
+                $(".navbar-brand").text(" / Customers ");
                 break;
             case "pills-item-tab":
                 $(".navbar-brand").text(" / Item Manage");
